@@ -1,0 +1,61 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\title{MATH 307-101
+Applied Linear Algebra
+2024 Winter Term 1 (Sep–Dec 2024)}
+\author{MacKenzie Richards, Ankkit Prakash, Yuxin Hu, \\ Somesh Joshi, Cai lewendon}
+\date{December 2024}
+\begin{document}
+\maketitle
+\section{Approximating Eigenvalues with the QR Algorithm}
+\subsection{}
+\subsection{}
+\subsection{}
+\subsection{}
+\subsection{}
+\subsection{QR Algorithm in Python}
+    Results from python code (QRAlgorithm(1.6-1.8).py): \\
+    \begin{tabular}{c|c}
+        \textbf{Matrix} & \textbf{Eigenvalues} \\
+        \hline \\
+        \(\begin{bmatrix} 2 & 3 \\ 2 & 1 \end{bmatrix}\) & 4.0, -1.0 \\
+        \\ \hline \\
+        \(\begin{bmatrix} 1 & 1 \\ 2 & 1 \end{bmatrix}\) & 2.41, -0.41 \\
+        \\ \hline \\
+        \(\begin{bmatrix} 1 & 0 & -1 \\ 1 & 2 & 1 \\ -4 & 0 & 1 \end{bmatrix}\) & 3.01, 1.99, -1.0 \\
+        \\ \hline \\
+        \(\begin{bmatrix} 1 & 1 & -1 \\ 0 & 2 & 0 \\ -2 & 4 & 2 \end{bmatrix}\) & 3.0, 2.0, 0.0 \\
+    \end{tabular}
+
+\subsection{Another Example}
+    Results from python code (QRAlgorithm(1.6-1.8).py): \\
+    \begin{tabular}{c|c}
+        \textbf{Matrix} & \textbf{Eigenvalues} \\
+        \hline \\
+        \(\begin{bmatrix} 2 & 3 \\ -1 & -2 \end{bmatrix}\) & 2.0, -2.0 \\
+    \end{tabular} \\ \\
+    This is clearly incorrect as the eigenvalues should be 1 and -1. The basic QR algorithm has failed because the absolute values of the eigenvalues are non-distinct. 
+    The QR algorithm relies on seperating eigenvalues based on their magnitudes and since the eigenvalues are the same magnitude, the algorithm fails.
+\subsection{Using a Shift}
+    Results from python code (QRAlgorithm(1.6-1.8).py): \\
+    \begin{tabular}{c|c}
+        \textbf{Matrix} & \textbf{Eigenvalues} \\
+        \hline \\
+        \(\begin{bmatrix} 2 & 3 \\ -1 & -2 \end{bmatrix}\) & 1.0, -1.0 \\
+    \end{tabular} \\ \\ \\
+$B = A + \alpha I \implies \lambda$ is an eigenvalue of A $\iff \lambda + \alpha$ is an eigenvalue of B. 
+\begin{proof}
+    $ $\newline
+    ($\implies$) Let $\lambda$ be an eigenvalue of A. Then there exists a non-zero vector x such that $Ax = \lambda x$. \\
+    Then $Bx = (A + \alpha I)x = Ax + \alpha x = \lambda x + \alpha x = (\lambda + \alpha)x$. \\ 
+    Thus, $\lambda + \alpha$ is an eigenvalue of B. \\ \\
+    ($\impliedby$) Let $\lambda + \alpha$ be an eigenvalue of B. Then there exists a non-zero vector x such that $Bx = (\lambda + \alpha)x$. \\
+    Then $Ax = (B - \alpha I) x = Bx - \alpha I x = (\lambda + \alpha)x - \alpha x = \lambda x$. \\
+    Thus, $\lambda$ is an eigenvalue of A. \\ 
+\end{proof}
+
+\end{document}
