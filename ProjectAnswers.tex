@@ -12,10 +12,118 @@ Applied Linear Algebra
 \begin{document}
 \maketitle
 \section{Approximating Eigenvalues with the QR Algorithm}
-\subsection{}
-\subsection{}
-\subsection{}
-\subsection{}
+\subsection{Prove $A_1$ is similar to A}
+    A is a square matrix. Let, $A = QR$ be the QR factorization of A. \\
+    Q is a square matrix, and its columns form an orthonormal basis by construction. \\
+    Therefore, $Q^{-1} = Q^T$ and $Q^{T}Q = QQ^T = I$, i.e, Q is invertible\\
+    $A_1 = RQ$.\\ 
+    A matrix $A$ is similar to another matrix $B$ if there exists an invertible matrix $P$ such that:
+    $$A = PBP^{-1}$$
+    For $B = A_1$ and $P = Q$ \\
+    $$A = QA_{1}Q^T = Q (RQ) Q^T = QR$$ \\
+    Therefore, $A_1$ is similar to $A$. \\ 
+    Now, to prove $A_1$ and $A$ have the same eigenvectors. \\
+    A matrix has an eigenvalue $\lambda$ and corresponding eigenvector $v$ if \\
+    $$Av = \lambda v$$
+    Since $A_1$ is similar to $A$
+    $$Q (RQ) Q^T v = \lambda v$$
+    Left multiply both sides by $Q^T$
+    $$ (Q^{T}Q) (RQ) (Q^{T}v) = Q^{T} \lambda v = \lambda (Q^{T}v)$$ \\
+    Set $u = Q^{T} v$, and since $A_1 = RQ$. We get, \\
+    $$ A_1 u = \lambda u$$
+    Since $\lambda$ and $v$ were arbitrary, we have shown that $A$ and $A_1$ have the same eigenvalues.
+
+\subsection{Find $A_1$ and $A$, verify they have the same eigenvalues}
+
+$$
+A = \begin{bmatrix}
+1 & 0 \\
+1 & 3 
+\end{bmatrix} 
+$$
+
+    Finding the eigenvalues from factoring the characteristic equation, we get \\
+    $$det(A - \lambda I) = (1 - \lambda)(3 - \lambda) = 0 \implies \lambda = 3,1$$ \\
+
+    The QR factorization of A results in $A = QR$ such that \\
+    $$
+    Q = \begin{bmatrix}
+        \frac{1}{\sqrt{2}} & \frac{-3}{\sqrt{18}} \\
+        \frac{1}{\sqrt{2}} & \frac{3}{\sqrt{18}} 
+        \end{bmatrix},
+    R = \begin{bmatrix}
+        \sqrt{2} & \frac{3}{\sqrt{2}} \\
+        0 & \frac{\sqrt{18}}{2} 
+        \end{bmatrix}
+    $$ \\
+    Therefore, $A_1 = RQ$ is \\
+    $$
+    A_1 = RQ = 
+    \begin{bmatrix}
+        \frac{1}{\sqrt{2}} & \frac{-3}{\sqrt{18}} \\
+        \frac{1}{\sqrt{2}} & \frac{3}{\sqrt{18}} 
+    \end{bmatrix}
+    \begin{bmatrix}
+        \sqrt{2} & \frac{3}{\sqrt{2}} \\
+        0 & \frac{\sqrt{18}}{2} 
+    \end{bmatrix}
+    = \frac{1}{2}
+     \begin{bmatrix}
+        5 & 1 \\
+        3 & 3 
+    \end{bmatrix}
+    $$
+    Finding the eigenvalues from factoring the characteristic equation of $A_1$, we get \\
+    $$det(A_1 - \lambda I) = (\frac{5}{2} - \lambda)(\frac{3}{2} - \lambda) - \frac{3}{2 \times 2} = 0 \implies \lambda^2 -4\lambda +3 = 0  \\
+    $$
+    $$\implies (1 - \lambda)(3 - \lambda) = 0 \implies \lambda = 3,1$$ \\\\
+
+    Therefore, $A_1$ and $A$ have the same eigenvalues
+
+
+\subsection{Ak is similar to A}
+
+Proof by induction. \\
+Inductive Hypothesis: $A_k$ is similar to $A$ for $k \geq 1$ \\
+Base case:$A_1$ is similar to $A$ \\
+For an invertible matrix Q, \\
+$A = QA_{1}Q^T = Q (RQ) Q^T = QR$ \\ \\
+Assume inductive hypothesis is true, that $A_k$ is similar to $A$ for $k \geq 1$ \\ \\
+To show: $A_{k+1}$ is similar to $A_k$, and therefore, $A$ \\
+
+$A_{k+1} = R_kQ_k$ 
+
+$A_k = Q_k A_{k+1} Q_k^T  =  Q_k R_kQ_k Q_k^T = Q_k R_k$
+
+Clearly, $A_{k+1}$ is similar to $A_k$. Therefore, $A_{k+1}$ is similar to $A_k$ (since $A_k = Q_kR_k = R_{k-1}Q_{k-1}$ and so forth) by the inductive hypothesis.
+
+
+
+
+\subsection{Continuing Problem  1.2}
+Python code was written to calculate $A_2, A_3, A_4, A_5$. \\
+$$
+A_2 = \begin{bmatrix}
+3.12 & -0.47 & \\
+0.53 & 0.88 & \\
+\end{bmatrix}
+A_3 = \begin{bmatrix}
+3.06 & 0.84 & \\
+-0.16 & 0.94 & \\
+\end{bmatrix}
+A_4 = \begin{bmatrix}
+3.02 & -0.95 & \\
+0.05 & 0.98 & \\
+\end{bmatrix}
+A_5 = \begin{bmatrix}
+3.01 & 0.98 & \\
+-0.02 & 0.99 & \\
+\end{bmatrix}
+$$ \\ 
+
+As we can clearly see, $A_k \xrightarrow{} A$ as $k$ increases
+
+
 \subsection{}
 \subsection{QR Algorithm in Python}
     Results from python code (QRAlgorithm(1.6-1.8).py): \\
