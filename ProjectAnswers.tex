@@ -166,4 +166,40 @@ $B = A + \alpha I \implies \lambda$ is an eigenvalue of A $\iff \lambda + \alpha
     Thus, $\lambda$ is an eigenvalue of A. \\ 
 \end{proof}
 
+
+\subsection{The $QR$ factorization of $A^{k+1}$}
+\begin{proof}
+    $ $\newline
+    Let $Q_0 = Q$ and $R_0 = R$. \\
+    \textbf{1.} $Q_0 Q_1 \cdots Q_{k-1} A_k = A Q_0 Q_1 \cdots Q_{k-1}$ for all $k \geq 1$ \\ \\
+    \textit{Base Case:} $k = 1$ so $A = Q_0 R_0, A_1 = R_0 Q_0$ then, \\
+    \indent $Q_0 A_1 = (Q_0 R_0) Q_0 = A Q_0$ \\
+    \textit{Inductive Step:} Assume $Q_0 Q_1 \cdots Q_{k-1} A_k = Q_0 Q_1 \cdots Q_{k-1} R_{k-1} Q_{k-1} = A Q_0 Q_1 \cdots Q_{k-1}$, then for $k+1$ \\
+    \indent $Q_0 Q_1 \cdots Q_{k-1} Q_k A_{k+1} = Q_0 Q_1 \cdots Q_{k-1} Q_k R_k Q_k$ \\ 
+    \indent $= Q_0 Q_1 \cdots Q_{k-1} A_k Q_k$ (Since $A_k = Q_k R_k$) \\
+    \indent $= (Q_0 Q_1 \cdots Q_{k-1} R_{k-1} Q_{k-1}) Q_k$ (Since $A_k = R_{k-1} Q_{k-1}$) \\
+    \indent $= A Q_0 Q_1 \cdots Q_{k-1} Q_k$ (By Inductive Hypothesis)\\ \\
+    Thus $Q_0 Q_1 \cdots Q_{k-1} A_{k} = A Q_0 Q_1 \cdots Q_{k-1}$. \\ \\
+    \textbf{2.} $(Q_0 Q_1 \cdots Q_k)(R_k \cdots R_1 R_0) = A(Q_0 Q_1 \cdots Q_{k-1})(R_{k-1} \cdots R_1 R_0)$ \\ \\
+    \textit{Base Case:} $k = 1$ so $A = Q_0 R_0, A_1 = R_0 Q_0$ then, \\
+    \indent $(Q_0 Q_1)(R_1 R_0) = Q_0 Q_1 R_1 R_0 = Q_0 A_1 R_0$ (Since $A_1 = Q_1 R_1$) \\
+    \indent $= Q_0 R_0 Q_0 R_0$ (Since $A_1 = R_0 Q_0$) \\ 
+    \indent $= A Q_0 R_0$ (Since $A = Q_0 R_0$) \\
+    \textit{Inductive Step:} Assume $(Q_0 Q_1 \cdots Q_k)(R_k \cdots R_1 R_0) = A(Q_0 Q_1 \cdots Q_{k-1})(R_{k-1} \cdots R_1 R_0)$, then for $k+1$ \\
+    \indent $(Q_0 Q_1 \cdots Q_k Q_{k+1})(R_{k+1} R_k \cdots R_1 R_0) = Q_0 Q_1 \cdots Q_k Q_{k+1}R_{k+1} R_k \cdots R_1 R_0$ \\
+    \indent $= Q_0 Q_1 \cdots Q_k A_{k+1} R_k \cdots R_1 R_0$ (Since $A_{k+1} = Q_{k+1} R_{k+1}$) \\
+    \indent $= Q_0 Q_1 \cdots Q_k R_k Q_k R_k \cdots R_1 R_0$ (Since $A_{k+1} = R_k Q_k$) \\
+    \indent $= (Q_0 Q_1 \cdots Q_{k-1} A_k) Q_k R_k R_{k-1} \cdots R_1 R_0$ (Since $A_k = Q_k R_k$) \\
+    \indent $= (AQ_0 Q_1 \cdots Q_{k-1}) Q_k R_k R_{k-1} \cdots R_1 R_0$ (By \textbf{1.}) \\
+    \indent $= A(Q_0 Q_1 \cdots Q_{k-1} Q_k) (R_k R_{k-1} \cdots R_1 R_0)$ \\ \\
+    Thus $(Q_0 Q_1 \cdots Q_k)(R_k \cdots R_1 R_0) = A(Q_0 Q_1 \cdots Q_{k-1})(R_{k-1} \cdots R_1 R_0)$. \\ \\
+    \textbf{3.} $A^{k+1} = (Q_0 Q_1 \cdots Q_k) (R_k \cdots R_1 R_0)$ \\ \\
+    \textit{Base Case:} $k = 0$ so $A^1 = Q_0 R_0 = QR = A$ \\
+    \textit{Inductive Step:} Assume $A^{k+1} = (Q_0 Q_1 \cdots Q_k) (R_k \cdots R_1 R_0)$, then for $k+2$ \\
+    \indent $A^{k+2} = A A^{k+1} = A (Q_0 Q_1 \cdots Q_k) (R_k \cdots R_1 R_0)$ (By Inductive Hypothesis) \\
+    \indent $= (Q_0 Q_1 \cdots Q_kQ_{k+1})(R_{k+1}R{k} \cdots R_1 R_0)$ (By \textbf{2.}) \\ \\
+    Thus $A^{k+1} = (Q_0 Q_1 \cdots Q_k) (R_k \cdots R_1 R_0)$ for all $k \geq 0$.
+\end{proof}
+
+
 \end{document}
