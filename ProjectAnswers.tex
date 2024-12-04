@@ -3,10 +3,11 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
+\usepackage{enumitem}
 
 \title{MATH 307-101
 Applied Linear Algebra}
-\author{MacKenzie Richards, Ankkit Prakash, Yuxin Hu, \\ Somesh Joshi, Cai lewendon}
+\author{MacKenzie Richards, Ankkit Prakash, \\ Somesh Joshi, Cai Lewendon}
 \date{2024 Winter Term 1 (Sep–Dec 2024)}
 \begin{document}
 \maketitle
@@ -98,9 +99,10 @@ Clearly, $A_{k+1}$ is similar to $A_k$. Therefore, $A_{k+1}$ is similar to $A_k$
 
 
 
-
 \subsection{Continuing Problem  1.2}
 Python code was written to calculate $A_2, A_3, A_4, A_5$. \\
+See attached file \texttt{Q1-4.ipynb}
+\\
 $$
 A_2 = \begin{bmatrix}
 3.12 & -0.47 & \\
@@ -120,10 +122,12 @@ A_5 = \begin{bmatrix}
 \end{bmatrix}
 $$ \\ 
 
-As we can clearly see, $A_k \xrightarrow{} A$ as $k$ increases
+As we can clearly see, the diagonals of $A_k$ approach the eigenvalues of $A$ as $k$ increases.
 
 
-\subsection{}
+\subsection{Prove Theorem 1.1}
+// incomplete
+
 \subsection{QR Algorithm in Python}
     Results from python code (QRAlgorithm(1.6-1.8).py): \\
     \begin{tabular}{c|c}
@@ -201,4 +205,200 @@ $B = A + \alpha I \implies \lambda$ is an eigenvalue of A $\iff \lambda + \alpha
 \end{proof}
 
 \subsection{2.1 R}
+
+\section{Image Compression}
+\subsection{The Outer Product Form of the SVD}
+
+\begin{enumerate}[label=(\alph*)]
+\item Prove theorem 2.1
+
+We have $A = U\Sigma V^T$, the SVD Decomposition of A \\
+Let  $U = \begin{bmatrix} u_1 & u_2 & ... & u_r & u_{r+1} & ... & u_m\end{bmatrix}$ and, \\
+
+Let $V = \begin{bmatrix} v_1 & v_2 & ... & v_r & v_{r+1} & ... & v_n\end{bmatrix}$ \\
+
+Therefore, $V^T = \begin{bmatrix} v_1^T \\ v_2^T \\ ... \\ v_r^T \\ v_{r+1}^T \\ ... \\ v_n^T\end{bmatrix} $ \\ 
+
+We want to show that \\
+$A = \sigma_{1}u_{1}v_{1}^T + \sigma_{2}u_{2}v_{2}^T + ... + \sigma_{r}u_{r}v_{r}^T$\\
+
+$$ U\Sigma V^T = \begin{bmatrix} u_1 & u_2 & ... & u_r & u_{r+1} & ... & u_m\end{bmatrix} \begin{bmatrix}
+    \begin{bmatrix}
+        \sigma_1 & 0 & ... & 0 \\
+        0 & \sigma_2 & ... & 0 \\
+        0 & 0 & \ddots & 0 \\
+        0 & 0 & ... & \sigma_r
+    \end{bmatrix} & 0 \\
+    0 & 0
+\end{bmatrix} \begin{bmatrix} v_1^T \\ v_2^T \\ ... \\ v_r^T \\ v_{r+1}^T \\ ... \\ v_n^T\end{bmatrix}$$
+
+$$\implies U\Sigma V^T = \begin{bmatrix} \sigma_{1}u_1 & \sigma_{2}u_2 & ... & \sigma_{r}u_r & (0)u_{r+1} & ... & (0)u_n\end{bmatrix} \begin{bmatrix} v_1^T \\ v_2^T \\ ... \\ v_r^T \\ v_{r+1}^T \\ ... \\ v_n^T\end{bmatrix} $$
+
+$$\implies U\Sigma V^T = \sigma_{1}u_1v_1^T + \sigma_{2}u_2v_2^T + ... + \sigma_{r}u_rv_r^T + (0)u_{r+1}v_{r+1}^T + ... + (0)u_nv_n^T $$
+
+$$ \implies A = U\Sigma V^T = \sigma_{1}u_1v_1^T + \sigma_{2}u_2v_2^T + ... + \sigma_{r}u_rv_r^T$$ QED
+
+\item $ A = \begin{bmatrix}
+    -2 & 2 \\
+    -1 & 1 \\ 
+    2 & -2 
+\end{bmatrix} $ \\
+
+$A^TA = \begin{bmatrix}
+    -2 & -1 & 2 \\ 
+    2 & 1 & -2
+\end{bmatrix}\begin{bmatrix}
+    -2 & 2 \\
+    -1 & 1 \\ 
+    2 & -2 
+\end{bmatrix} = \begin{bmatrix}
+    9 & -9 \\ 
+    -9 & 9
+\end{bmatrix}$ \\
+
+Solving the characteristic equation, $det(A^TA - \lambda I) = 0$ \\
+$(9-\lambda)^2 - (-9)^2 = 0 \iff 81 + \lambda^2 -18\lambda - 81 = 0 \iff \lambda^2 - 18\lambda = 0$ \\
+$\lambda = 18,0$ \\
+Finding the respective eigenvectors, \\
+Solving $A^TA - \lambda I = 0$
+For $\lambda = 18$ \\
+$A^TA - 18I = \begin{bmatrix}
+    -9 & -9 \\ 
+    -9 & -9
+\end{bmatrix} $\\
+
+$\implies -9x_1 = 9x_2 \implies x_1 = -x_2 \implies v_1^{'} = x_2 \begin{bmatrix}
+-1 \\ 1
+\end{bmatrix}$ \\
+$\implies v_1 = \begin{bmatrix}
+\frac{-1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}}
+\end{bmatrix} $ \\
+
+For $\lambda = 0$ \\
+$A^TA - 0I = \begin{bmatrix}
+    9 & -9 \\ 
+    -9 & 9
+\end{bmatrix} $\\
+
+$\implies 9x_1 = 9x_2 \implies x_1 = x_2 \implies v_2^{'} = x_2 \begin{bmatrix}
+1 \\ 1
+\end{bmatrix}$ \\
+
+$\implies v_2 = \begin{bmatrix}
+\frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \end{bmatrix} $ \\
+
+Therefore,
+$ V = [v_1 v_2] = \begin{bmatrix}
+    \frac{-1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\ 
+    \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} 
+\end{bmatrix} \implies V^T = \begin{bmatrix}
+    \frac{-1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\ 
+    \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} 
+\end{bmatrix} $ \\
+
+And, $\Sigma = \begin{bmatrix}
+    \sqrt{18} & 0 \\ 0 & 0 \\ 0 & 0
+\end{bmatrix}$ \\
+
+Finally, we need to calculate $U$ \\
+Since $r=1$, we can only calculate one left singular value \\ 
+$u_1 = \frac{1}{\sigma_1} Av_1 = \frac{1}{\sqrt{18}} \begin{bmatrix}
+    -2 & 2 \\
+    -1 & 1 \\ 
+    2 & -2 
+\end{bmatrix} \begin{bmatrix}
+\frac{-1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}}
+\end{bmatrix} = \frac{1}{\sqrt{18}}\begin{bmatrix}
+    \frac{4}{\sqrt{2}} \\
+    \frac{2}{\sqrt{2}} \\ 
+    \frac{-4}{\sqrt{2}}
+\end{bmatrix} = \begin{bmatrix}
+    \frac{4}{6} \\
+    \frac{2}{6} \\ 
+    \frac{-4}{6}
+\end{bmatrix} = \begin{bmatrix}
+    2/3 \\ 1/3 \\ -2/3
+\end{bmatrix}$   \\
+
+Need $x$ such that $x \cdot u_1 = 0$ \\
+$\frac{2}{3} x_1 + \frac{1}{3}x_2 - \frac{2}{3}x_3 = 0 \implies 2x_1 + x_2 = 2x_3 \implies x_3 = \frac{1}{2}x_2 + x_1 $ \\
+$\implies x = \begin{bmatrix}
+    x_1 \\ x_2 \\ x_3 
+\end{bmatrix} =  x_1\begin{bmatrix}
+   1 \\ 0 \\ 1
+\end{bmatrix} + x_2\begin{bmatrix}
+   0 \\ 1 \\ 1/2
+\end{bmatrix}$ \\
+Therefore we have,
+$w_1 =  \begin{bmatrix}
+   1 \\ 0 \\ 1
+\end{bmatrix}, w_2= \begin{bmatrix}
+   0 \\ 1 \\ 1/2
+\end{bmatrix}$ \\
+Applying Gram-Schmidt, \\
+
+$u_2^{'} =  w_1$ \\
+$u_2 = \frac{u_2^{'}}{||u_2^{'}||} = \begin{bmatrix}
+   \frac{1}{\sqrt{2}}\\ 0 \\ \frac{1}{\sqrt{2}}
+\end{bmatrix} $
+
+$u_3^{'} = w_2 - (w_2 \cdot u_2) u_2  = \begin{bmatrix}
+   0 \\ 1 \\ 1/2
+\end{bmatrix} - (0 + 0 + \frac{1}{2\sqrt{2}}) \begin{bmatrix}
+   \frac{1}{\sqrt{2}}\\ 0 \\ \frac{1}{\sqrt{2}}
+\end{bmatrix} $ \\
+$ = \begin{bmatrix}
+   0 \\ 1 \\ 1/2
+\end{bmatrix} -  \begin{bmatrix}
+   1/4 \\ 0 \\ 1/4 
+\end{bmatrix}  = \begin{bmatrix}
+   -1/4 \\ 1 \\ 1/4 
+\end{bmatrix} $ \\
+$u_3 = \frac{u_3^{'}}{||u_3^{'}||}  = \begin{bmatrix}
+    \frac{-1}{3\sqrt{2}} \\ \frac{2\sqrt{2}}{3} \\ \frac{1}{3\sqrt{2}}
+\end{bmatrix}$ \\
+
+Then, we have $U = [u_1 u_2 u_3] = \begin{bmatrix}
+    2/3 & \frac{1}{\sqrt{2}} & \frac{-1}{3\sqrt{2}} \\
+    1/3 & 0 & \frac{2\sqrt{2}}{3} \\
+    -2/3 & \frac{1}{\sqrt{2}} & \frac{1}{3\sqrt{2}}
+\end{bmatrix}$ \\
+\\ 
+Finally, we have \\
+
+$A = \begin{bmatrix}
+    -2 & 2 \\
+    -1 & 1 \\ 
+    2 & -2 
+\end{bmatrix} = U\Sigma V^T = \begin{bmatrix}
+    2/3 & \frac{1}{\sqrt{2}} & \frac{-1}{3\sqrt{2}} \\
+    1/3 & 0 & \frac{2\sqrt{2}}{3} \\
+    -2/3 & \frac{1}{\sqrt{2}} & \frac{1}{3\sqrt{2}}
+\end{bmatrix} \begin{bmatrix}
+    \sqrt{18} & 0 \\ 0 & 0 \\ 0 & 0
+\end{bmatrix} \begin{bmatrix}
+    \frac{-1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\ 
+    \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} 
+\end{bmatrix}$
+
+And, 
+$u_1 = \begin{bmatrix}
+    2/3 \\ 1/3 \\ -2/3
+\end{bmatrix}$ \\
+$\sigma_1 = \sqrt{18}$ \\
+$v_1^{T} = \begin{bmatrix}
+    -1/\sqrt{2} & 1/\sqrt{2}
+\end{bmatrix}$ \\ 
+
+Calculating the product, we see
+$\sigma_1 u_1 v_1^T = \begin{bmatrix}
+    -2 & 2 \\
+    -1 & 1 \\ 
+    2 & -2 
+\end{bmatrix} = A$ \\
+As expected.
+\end{enumerate}
+
+\subsection{Digital Image Compression}
+See attached file \texttt{Q2-2.ipynb}
 \end{document}
