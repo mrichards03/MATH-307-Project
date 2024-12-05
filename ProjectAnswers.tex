@@ -618,9 +618,9 @@ $u_3 = \frac{u_3^{'}}{||u_3^{'}||}  = \begin{bmatrix}
 \end{bmatrix}$ \\
 
 Then, we have $U = [u_1 u_2 u_3] = \begin{bmatrix}
-    2/3 & \frac{1}{\sqrt{2}} & \frac{-1}{3\sqrt{2}} \\
-    1/3 & 0 & \frac{2\sqrt{2}}{3} \\
-    -2/3 & \frac{1}{\sqrt{2}} & \frac{1}{3\sqrt{2}}
+    \frac{2}{3} & \frac{1}{\sqrt{2}} & \frac{-1}{3\sqrt{2}} \\
+    \frac{1}{3} & 0 & \frac{2\sqrt{2}}{3} \\
+    -\frac{2}{3} & \frac{1}{\sqrt{2}} & \frac{1}{3\sqrt{2}}
 \end{bmatrix}$ \\
 \\ 
 Finally, we have \\
@@ -630,27 +630,26 @@ $A = \begin{bmatrix}
     -1 & 1 \\ 
     2 & -2 
 \end{bmatrix} = U\Sigma V^T = \begin{bmatrix}
-    2/3 & \frac{1}{\sqrt{2}} & \frac{-1}{3\sqrt{2}} \\
-    1/3 & 0 & \frac{2\sqrt{2}}{3} \\
-    -2/3 & \frac{1}{\sqrt{2}} & \frac{1}{3\sqrt{2}}
+    \frac{2}{3} & \frac{1}{\sqrt{2}} & \frac{-1}{3\sqrt{2}} \\
+    \frac{1}{3} & 0 & \frac{2\sqrt{2}}{3} \\
+    -\frac{2}{3} & \frac{1}{\sqrt{2}} & \frac{1}{3\sqrt{2}}
 \end{bmatrix} \begin{bmatrix}
     \sqrt{18} & 0 \\ 0 & 0 \\ 0 & 0
 \end{bmatrix} \begin{bmatrix}
     \frac{-1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\ 
     \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} 
-\end{bmatrix}$
+\end{bmatrix}$ \\\\
 
-And, 
-$u_1 = \begin{bmatrix}
-    2/3 \\ 1/3 \\ -2/3
-\end{bmatrix}$ \\
-$\sigma_1 = \sqrt{18}$ \\
-$v_1^{T} = \begin{bmatrix}
-    -1/\sqrt{2} & 1/\sqrt{2}
-\end{bmatrix}$ \\ 
-
-Calculating the product, we see
-$\sigma_1 u_1 v_1^T = \begin{bmatrix}
+And the \textbf{Reduced Singular Value Decomposition} is: \\ \\
+$A = \sigma_1 u_1 v_1^T = 
+\sqrt{18}
+\begin{bmatrix}
+    \frac{2}{3} \\ \frac{1}{3} \\ -\frac{2}{3}
+\end{bmatrix}
+\begin{bmatrix}
+    -\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}
+\end{bmatrix} 
+= \begin{bmatrix}
     -2 & 2 \\
     -1 & 1 \\ 
     2 & -2 
