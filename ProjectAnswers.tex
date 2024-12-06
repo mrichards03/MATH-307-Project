@@ -4,6 +4,8 @@
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{float}
 
 \renewcommand{\arraystretch}{1.5} % Increases row spacing by a factor of 1.5
 
@@ -659,4 +661,50 @@ As expected.
 
 \subsection{Digital Image Compression}
 See attached file \texttt{Q2-2.ipynb}
+\begin{enumerate}[label=(\alph*)]
+    \item Original Image
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.5\textwidth]{Q2-2/ankkit-art-gallery-grey.jpg}
+            \caption{Ankkit}
+            \label{fig:ankkit-art-gallery}
+        \end{figure}
+    \item Original image matrix dimensions: $400\times400$
+    \item Rank 1 Approximation:
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.5\textwidth]{Q2-2/rank1Image.jpg}
+            \caption{Rank 1 Approximation}
+            \label{fig:ankkit-art-gallery-rank1}
+        \end{figure}
+    \item Retained Singular Values vs Compression Ratio
+    \begin{table}[H]
+        \begin{tabular}{|c|c|c|}
+            \hline
+            \textbf{Singular Values Retained} & \textbf{Compression Ratio} & \textbf{Image} \\
+            \hline
+            5 & 39.95006242197253 & \includegraphics[width=0.2\textwidth]{Q2-2/compressed_k5.jpg} \\
+            \hline
+            10 & 19.975031210986266 & \includegraphics[width=0.2\textwidth]{Q2-2/compressed_k10.jpg} \\
+            \hline
+            40 & 4.9937578027465666 & \includegraphics[width=0.2\textwidth]{Q2-2/compressed_k40.jpg} \\
+            \hline
+            60 & 3.329171868497711 & \includegraphics[width=0.2\textwidth]{Q2-2/compressed_k60.jpg} \\
+            \hline
+        \end{tabular}        
+        \caption{Singular Values Retained vs Compression Ratio}
+        \label{tab:compression-ratio}
+    \end{table}
+    \item Original Image vs Compressed Image
+        \begin{figure}[H]
+            \centering
+            \begin{tabular}{cc}
+                \includegraphics[width=0.4\textwidth]{Q2-2/ankkit-art-gallery-grey.jpg} & 
+                \includegraphics[width=0.4\textwidth]{Q2-2/compressed_k60.jpg} \\
+                Original Image & Compressed Image (k=60)
+            \end{tabular}
+            \caption{Original Image vs Compressed Image}
+            \label{fig:original-vs-compressed}
+        \end{figure}
+\end{enumerate}
 \end{document}
