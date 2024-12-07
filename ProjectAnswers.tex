@@ -507,17 +507,16 @@ $Qx = \begin{bmatrix} \frac{1}{3} & \frac{2}{3} & \frac{2}{3} \\ \frac{2}{3} & \
         \end{proof}
 \end{enumerate}
 \subsection{Solution: Proof that \( A_{k-1} \) and \( A_k \) have the same eigenvalues}
-\begin{proof}
-The matrix \( A_{k-1} - \mu_k I \) is factored as:
+\begin{proof} $ $\newline
+The matrix \( A_{k-1}\) can be written as:
 \[
-A_{k-1} - \mu_k I = Q_k R_k,
+A_{k-1} = Q_k R_k + \mu_k I \implies A_{k-1} - \mu_k I = Q_k R_k.
 \]
 where \( Q_k \) is orthogonal. Multiplying both sides on the left by \( Q_k^\top \), we get:
 \[
 Q_k^\top (A_{k-1} - \mu_k I) = R_k.
 \]
 
-\subsection*{Step 2: Transformation from \( A_{k-1} \) to \( A_k \)}  
 The next matrix \( A_k \) is defined as:
 \[
 A_k = R_k Q_k + \mu_k I.
