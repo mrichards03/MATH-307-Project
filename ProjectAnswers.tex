@@ -554,12 +554,7 @@ Since \( Q_k^\top Q_k = I \), this simplifies further to:
 A_k = Q_k^\top A_{k-1} Q_k.
 \]
 
-\subsection*{Step 3: Similarity Transformations Preserve Eigenvalues}  
-Two matrices \( A \) and \( B \) are similar if there exists an invertible matrix \( P \) such that:
-\[
-B = P^{-1} A P.
-\]
-It is a fundamental property of matrices that similar matrices have the same eigenvalues. In our case, \( A_k = Q_k^\top A_{k-1} Q_k \) shows that \( A_k \) is similar to \( A_{k-1} \), since \( Q_k \) is orthogonal and hence invertible.
+Since $Q$ is orthogonal, $Q^{-1} = Q^T$. Therefore, $A_k $ and $A_{k-1}$ are similar matrices and thus share eigenvalues as proven in \textbf{1.1}.
 
 \subsection*{Conclusion}  
 Since \( A_k \) is similar to \( A_{k-1} \), they must have the same eigenvalues. Thus, for every \( k \geq 1 \), the matrices \( A_{k-1} \) and \( A_k \) share the same eigenvalues.
