@@ -127,53 +127,59 @@ $$ \\
 As we can clearly see, the diagonals of $A_k$ approach the eigenvalues of $A$ as $k$ increases.
 
 
-\subsection{Prove Theorem 1.1}
-\textbf{Theorem:} Let $A$ be a square matrix. Suppose all the eigenvalues of $A$ are real numbers and have distinct absolute values. Then the matrices $A_1, A_2, \dots, A_k, \dots$ approach an upper triangular matrix $U$ whose diagonal entries are the eigenvalues of $A$.
-
-\begin{proof}
-We proceed in the following steps:
-
-\textbf{Step 1: Schur Decomposition}  
-By the Schur decomposition theorem, for any square matrix $A \in \mathbb{C}^{n \times n}$, there exists a unitary matrix $Q$ such that:
-\[
-Q^* A Q = R,
-\]
-where $R$ is an upper triangular matrix, and the diagonal entries of $R$ are the eigenvalues of $A$. Since the eigenvalues of $A$ are real, we can choose $Q$ such that $R$ is real and upper triangular.
-
-\textbf{Step 2: Construction of Matrices $A_k$}  
-Assume the sequence of matrices $A_1, A_2, \dots, A_k, \dots$ is constructed through iterative similarity transformations:
-\[
-A_{k+1} = P_k^{-1} A_k P_k,
-\]
-where each $P_k$ is a carefully chosen transformation matrix such that the off-diagonal entries of $A_k$ are reduced in magnitude at each step. If $A_k = A^k$, we analyze the powers of $A$ instead.
-
-\textbf{Step 3: Eigenvalue Dominance}  
-Let the eigenvalues of $A$ be $\lambda_1, \lambda_2, \dots, \lambda_n$, which are real and have distinct absolute values:
-\[
-|\lambda_1| > |\lambda_2| > \cdots > |\lambda_n|.
-\]
-Due to the dominance of eigenvalues, successive transformations ensure that the influence of off-diagonal terms diminishes relative to the diagonal terms. As $k \to \infty$, the magnitude of each off-diagonal entry approaches zero due to the separation in eigenvalue magnitudes.
-
-\textbf{Step 4: Convergence to Upper Triangular Form}  
-For sufficiently large $k$, the matrix $A_k$ becomes arbitrarily close to an upper triangular form:
-\[
-A_k \to U = \begin{bmatrix}
-\lambda_1 & * & \cdots & * \\
-0 & \lambda_2 & \cdots & * \\
-\vdots & \ddots & \ddots & * \\
-0 & 0 & \cdots & \lambda_n
-\end{bmatrix},
-\]
-where $*$ denotes diminishing off-diagonal terms. The diagonal entries of $U$ are the eigenvalues of $A$.
-
-\textbf{Step 5: Justification of Convergence}  
-The convergence to $U$ is a consequence of the dominance of eigenvalues and the iterative similarity transformations. At each step, the terms corresponding to smaller eigenvalues (in absolute value) are suppressed relative to the dominant terms.
-
-\textbf{Conclusion:}  
-In conclusion, the sequence of matrices $A_1, A_2, \dots, A_k, \dots$ converges to an upper triangular matrix $U$ whose diagonal entries are the eigenvalues of $A$.
-
-\end{proof}
-
+\subsection{An Important Theorem}
+    \begin{proof}
+        Since $A$ is a $n \times n$ matrix with $n$ eigenvalues, it is diagonizable so can be written: \\
+        $$A = PDP^{-1}$$
+        where $D$ is a diagonal matrix with the eigenvalues of $A$ on the diagonal. \\
+        Since $P=QR$
+        \[
+        A = QR D R^{-1}Q^{-1} \implies Q^{-1}AQ = R D R^{-1}
+        \]\\
+        Since $RDR^{-1}$ is the product of upper triangular matrices, it is upper triangular. Therefore, $Q^{-1}AQ = Q^TAQ$ is 
+        an upper triangular matrix whose diagonals are the eigenvalues of $A$. Now, \\
+        \[
+        A^{m+1} = (PDP^{-1})^{m+1} = P D P^{-1} \cdot P D P^{-1} \cdots P D P^{-1} \quad (m + 1 \text{ times}).
+        \]
+        When you expand this multiplication, all the intermediate \( P^{-1}P \) terms cancel out, leaving:
+        \[
+        A^{m+1} = P D^{m+1} P^{-1}.
+        \]
+        For this proof, I will assume that $P^{-1} = LU$ since it's much more complicated to prove if it doesn't and 
+        the given proof along with many similar proofs I found, all assume $P^{-1} = LU$. Therefore, \\
+        \[
+        A^{m+1} = QR D^{m+1} LU = QR (D^{m+1} L D^{-(m+1)})D^{m+1}U \tag{1}
+        \] \\
+        Note that,
+        \[ 
+            A_{m} = R_mQ_m, \quad A_{m-1}=Q_mR_m, \quad Q_m^T = Q_m^{-1} 
+        \]
+        So, \\
+        $ R_m = Q_m^TA_{m-1} \implies A_{m} = Q^T_mA_{m-1}Q_m$\\ \\
+        Expanding this we get, \\
+        \[
+            A_m = Q^T_mA_{m-1}Q_m = Q^T_m Q^T_{m-1} A_{m-2} Q_{m-1} Qm = \cdots = Q^T_m \cdots Q^T_1A_0Q_1 \cdots Q_m = P^T_mAP_m
+        \]
+        where $P_m = Q_1 \cdots Q_m$. Note that $P_m$ is the product of orthogonal matrices and hence is
+        orthogonal. \\\\
+        We also know from \textbf{1.9} that $A^{m+1} = (Q_0 Q_1 \cdots Q_{m}) (R_{m} \cdots R_1 R_0)$
+        Let $U_{m} = R_{m} \cdots R_0$.\\
+        Then $A^{m+1} = P_{m}U_{m}$. Equating this with (1): \\
+        \[ P_{m}U_{m} = QR (D^{m+1} L D^{-(m+1)})D^{m+1}U \tag{2} \] \\        
+        The matrix \( D^{m+1} L D^{-(m+1)} \) is a lower triangular matrix whose \( j,k \)-th element is given by \( l_{jk} \left( \frac{\lambda_j}{\lambda_k} \right)^{m+1} \), when \( j > k \). Since \( \left| \frac{\lambda_j}{\lambda_k} \right| < 1 \) for \( j > k \),
+        \[
+        \lim_{m \to \infty} D^{m+1} L D^{-(m+1)} = I.
+        \]
+        Then (2) becomes $P_{m}U_{m} = QRD^{m+1}U$ \\ \\
+        If we ensure that all the decompositions are done such that R is 
+        chosen to have positive diagonal entries then the QR factorizations will
+        be unique.\\\\
+        Since the QR factorization is unique, \\
+        $lim_{m \to \infty}P_{m} = Q$ and $lim_{m \to \infty}U_{m} = lim_{m \to \infty}RD^{m+1}U$. \\\\
+        So,\\
+        $lim_{m \to \infty}A_{m} = lim_{m \to \infty}P_{m}^TAP_{m} = Q^TAQ$\\\\
+        Therefore, $A_m$ converges to an upper triangular matrix whose diagonals are the eigenvalues of $A$.
+    \end{proof}
 \subsection{QR Algorithm in Python}
     Results from python code (QRAlgorithm(1.6-1.8).py): \\
     \begin{tabular}{c|c}
@@ -506,7 +512,8 @@ $Qx = \begin{bmatrix} \frac{1}{3} & \frac{2}{3} & \frac{2}{3} \\ \frac{2}{3} & \
             Thus, the upper Hessenberg form of a symmetric matrix naturally becomes tridiagonal because the symmetry constraint forces zeros to appear below and above the second subdiagonals.
         \end{proof}
 \end{enumerate}
-\subsection{Solution: Proof that \( A_{k-1} \) and \( A_k \) have the same eigenvalues}
+\subsection{QR Algorithm with Shifts}
+\( A_{k-1} \) and \( A_k \) from the Practical QR Algorithm have the same eigenvalues.
 \begin{proof} $ $\newline
 The matrix \( A_{k-1}\) can be written as:
 \[
