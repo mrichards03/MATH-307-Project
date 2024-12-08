@@ -128,16 +128,18 @@ As we can clearly see, the diagonals of $A_k$ approach the eigenvalues of $A$ as
 
 
 \subsection{An Important Theorem}
-    \begin{proof}
-        Since $A$ is a $n \times n$ matrix with $n$ eigenvalues, it is diagonizable so can be written: \\
+    \begin{proof} $ $\newline
+        \textbf{1. $Q^TAQ$ is upper triangular with the eigenvalues of $A$ on the diagonal.} \\\\
+        Since $A$ is a $n \times n$ matrix with $n$ eigenvalues, it is diagonizable so there exists and invertible matrix $P$ such that: \\
         $$A = PDP^{-1}$$
-        where $D$ is a diagonal matrix with the eigenvalues of $A$ on the diagonal. \\
-        Since $P=QR$
+        where $D$ is a diagonal matrix with the eigenvalues of $A$ on the diagonal and $P$ contains the corresponding eigenvectors. \\
+        Let $P=QR$
         \[
         A = QR D R^{-1}Q^{-1} \implies Q^{-1}AQ = R D R^{-1}
         \]\\
         Since $RDR^{-1}$ is the product of upper triangular matrices, it is upper triangular. Therefore, $Q^{-1}AQ = Q^TAQ$ is 
-        an upper triangular matrix whose diagonals are the eigenvalues of $A$. Now, \\
+        an upper triangular matrix whose diagonals are the eigenvalues of $A$.\\\\
+        \textbf{2. $A^{m+1} = QR (D^{m+1} L D^{-(m+1)})D^{m+1}U$.} \\
         \[
         A^{m+1} = (PDP^{-1})^{m+1} = P D P^{-1} \cdot P D P^{-1} \cdots P D P^{-1} \quad (m + 1 \text{ times}).
         \]
@@ -145,12 +147,12 @@ As we can clearly see, the diagonals of $A_k$ approach the eigenvalues of $A$ as
         \[
         A^{m+1} = P D^{m+1} P^{-1}.
         \]
-        For this proof, I will assume that $P^{-1} = LU$ since it's much more complicated to prove if it doesn't and 
-        the given proof along with many similar proofs I found, all assume $P^{-1} = LU$. Therefore, \\
+        Assuming P does not require row interchange, as per the GoodReference Proof, $P=LU$. Therefore, \\
         \[
-        A^{m+1} = QR D^{m+1} LU = QR (D^{m+1} L D^{-(m+1)})D^{m+1}U \tag{1}
-        \] \\
-        Note that,
+        A^{m+1} = QR D^{m+1} LU = QR D^{m+1}U \tag{1}
+        \] \\ \\
+        \textbf{3. $A_m = P_m^TAP_m$} \\
+       
         \[ 
             A_{m} = R_mQ_m, \quad A_{m-1}=Q_mR_m, \quad Q_m^T = Q_m^{-1} 
         \]
@@ -162,15 +164,16 @@ As we can clearly see, the diagonals of $A_k$ approach the eigenvalues of $A$ as
         \]
         where $P_m = Q_1 \cdots Q_m$. Note that $P_m$ is the product of orthogonal matrices and hence is
         orthogonal. \\\\
-        We also know from \textbf{1.9} that $A^{m+1} = (Q_0 Q_1 \cdots Q_{m}) (R_{m} \cdots R_1 R_0)$
-        Let $U_{m} = R_{m} \cdots R_0$.\\
-        Then $A^{m+1} = P_{m}U_{m}$. Equating this with (1): \\
+        \textbf{4. $P_{m}U_{m} = QR D^{m+1}U$} \\ \\
+        We know from \textbf{1.9} that $A^{m+1} = (Q_0 Q_1 \cdots Q_{m}) (R_{m} \cdots R_1 R_0)$. \\
+        Let $U_{m} = R_{m} \cdots R_0$. Then $A^{m+1} = P_{m}U_{m}$. Equating this with (1): \\
         \[ P_{m}U_{m} = QR (D^{m+1} L D^{-(m+1)})D^{m+1}U \tag{2} \] \\        
         The matrix \( D^{m+1} L D^{-(m+1)} \) is a lower triangular matrix whose \( j,k \)-th element is given by \( l_{jk} \left( \frac{\lambda_j}{\lambda_k} \right)^{m+1} \), when \( j > k \). Since \( \left| \frac{\lambda_j}{\lambda_k} \right| < 1 \) for \( j > k \),
         \[
         \lim_{m \to \infty} D^{m+1} L D^{-(m+1)} = I.
         \]
         Then (2) becomes $P_{m}U_{m} = QRD^{m+1}U$ \\ \\
+        \textbf{5. $A_m$ converges to $Q^TAQ$.} \\ \\
         If we ensure that all the decompositions are done such that R is 
         chosen to have positive diagonal entries then the QR factorizations will
         be unique.\\\\
