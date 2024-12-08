@@ -23,16 +23,16 @@ Applied Linear Algebra}
     A matrix $A$ is similar to another matrix $B$ if there exists an invertible matrix $P$ such that:
     $$A = PBP^{-1}$$
     For $B = A_1$ and $P = Q$ \\
-    $$A = QA_{1}Q^T = Q (RQ) Q^T = QR$$ \\
+    $$A = QR = QR(QQ^{-1}) = Q(RQ)Q^{-1} = QA_1Q^{-1}$$ \\
     Therefore, $A_1$ is similar to $A$. \\ 
     Now, to prove $A_1$ and $A$ have the same eigenvectors. \\
     A matrix has an eigenvalue $\lambda$ and corresponding eigenvector $v$ if \\
     $$Av = \lambda v$$
-    Since $A_1$ is similar to $A$
-    $$Q (RQ) Q^T v = \lambda v$$
+    Since $A = QA_1Q^{-1} = QA_1Q^{T}$
+    $$QA_1Q^{T} v = \lambda v$$
     Left multiply both sides by $Q^T$
-    $$ (Q^{T}Q) (RQ) (Q^{T}v) = Q^{T} \lambda v = \lambda (Q^{T}v)$$ \\
-    Set $u = Q^{T} v$, and since $A_1 = RQ$. We get, \\
+    $$ (Q^{T}Q) A_1 (Q^{T}v) = Q^{T} \lambda v = \lambda (Q^{T}v)$$ \\
+    Set $u = Q^{T} v$. We get, \\
     $$ A_1 u = \lambda u$$
     Since $\lambda$ and $v$ were arbitrary, we have shown that $A$ and $A_1$ have the same eigenvalues.
 \end{proof}
@@ -86,15 +86,14 @@ $$
 Inductive Hypothesis: $A_k$ is similar to $A$ for $k \geq 1$ \\
 Base case:$A_1$ is similar to $A$ \\
 For an invertible matrix Q, \\
-$A = QA_{1}Q^T = Q (RQ) Q^T = QR$ \\ \\
-Assume inductive hypothesis is true, that $A_k$ is similar to $A$ for $k \geq 1$ \\ \\
+$A = QR = QR(QQ^{-1}) = Q(RQ)Q^{-1} = QA_1Q^{-1}$ \\ \\
+Assume inductive hypothesis is true, that $A = Q_kA_kQ_k^{-1}$ or equivalently, $A_k = Q_k^{-1}AQ_k$ for $k \geq 1$ \\ \\
 To show: $A_{k+1}$ is similar to $A_k$, and therefore, $A$ \\
-
-$A_{k+1} = R_kQ_k$ 
-
-$A_k = Q_k A_{k+1} Q_k^T  =  Q_k R_kQ_k Q_k^T = Q_k R_k$
-
-Clearly, $A_{k+1}$ is similar to $A_k$. Therefore, $A_{k+1}$ is similar to $A_k$ (since $A_k = Q_kR_k = R_{k-1}Q_{k-1}$ and so forth) by the inductive hypothesis.
+$A_{k+1} = R_kQ_k$ \\
+$A_k = Q_k R_k = Q_k R_kQ_k Q_k^{-1} = Q_k A_{k+1} Q_k^{-1}$\\
+$\implies A_{k+1} = Q_k^{-1} A_k Q_k = Q_k^{-1}Q_k^{-1} A Q_kQ_k = (Q_kQ_k)^{-1} A (Q_kQ_k)$ \\
+Let $P = Q_kQ_k$, Then $A_{k+1} = PAP^{-1}$ \\
+Therefore, $A_{k+1}$ is similar to $A$ so $A_k$ is similar to $A$ for all $k \geq 1$.
 
 \end{proof}
 
@@ -120,7 +119,6 @@ A_5 = \begin{bmatrix}
 -0.02 & 0.99 & \\
 \end{bmatrix}
 $$ \\ 
-
 As we can clearly see, the diagonals of $A_k$ approach the eigenvalues of $A$ as $k$ increases.
 
 
