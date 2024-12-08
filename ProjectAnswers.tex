@@ -17,6 +17,7 @@ Applied Linear Algebra}
 \maketitle
 \section{Approximating Eigenvalues with the QR Algorithm}
 \subsection{Prove $A_1$ is similar to A}
+\begin{proof}
     A is a square matrix. Let, $A = QR$ be the QR factorization of A. \\
     Q is a square matrix, and its columns form an orthonormal basis by construction. \\
     Therefore, $Q^{-1} = Q^T$ and $Q^{T}Q = QQ^T = I$, i.e, Q is invertible\\
@@ -24,19 +25,19 @@ Applied Linear Algebra}
     A matrix $A$ is similar to another matrix $B$ if there exists an invertible matrix $P$ such that:
     $$A = PBP^{-1}$$
     For $B = A_1$ and $P = Q$ \\
-    $$A = QA_{1}Q^T = Q (RQ) Q^T = QR$$ \\
+    $$A = QR = QR(QQ^{-1}) = Q(RQ)Q^{-1} = QA_1Q^{-1}$$ \\
     Therefore, $A_1$ is similar to $A$. \\ 
     Now, to prove $A_1$ and $A$ have the same eigenvectors. \\
     A matrix has an eigenvalue $\lambda$ and corresponding eigenvector $v$ if \\
     $$Av = \lambda v$$
-    Since $A_1$ is similar to $A$
-    $$Q (RQ) Q^T v = \lambda v$$
+    Since $A = QA_1Q^{-1} = QA_1Q^{T}$
+    $$QA_1Q^{T} v = \lambda v$$
     Left multiply both sides by $Q^T$
-    $$ (Q^{T}Q) (RQ) (Q^{T}v) = Q^{T} \lambda v = \lambda (Q^{T}v)$$ \\
-    Set $u = Q^{T} v$, and since $A_1 = RQ$. We get, \\
+    $$ (Q^{T}Q) A_1 (Q^{T}v) = Q^{T} \lambda v = \lambda (Q^{T}v)$$ \\
+    Set $u = Q^{T} v$. We get, \\
     $$ A_1 u = \lambda u$$
     Since $\lambda$ and $v$ were arbitrary, we have shown that $A$ and $A_1$ have the same eigenvalues.
-
+\end{proof}
 \subsection{Find $A_1$ and $A$, verify they have the same eigenvalues}
 
 $$
@@ -45,63 +46,58 @@ A = \begin{bmatrix}
 1 & 3 
 \end{bmatrix} 
 $$
-
     Finding the eigenvalues from factoring the characteristic equation, we get \\
     $$det(A - \lambda I) = (1 - \lambda)(3 - \lambda) = 0 \implies \lambda = 3,1$$ \\
-
     The QR factorization of A results in $A = QR$ such that \\
     $$
     Q = \begin{bmatrix}
-        \frac{1}{\sqrt{2}} & \frac{-3}{\sqrt{18}} \\
-        \frac{1}{\sqrt{2}} & \frac{3}{\sqrt{18}} 
+        \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} \\
+        \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} 
         \end{bmatrix},
     R = \begin{bmatrix}
         \sqrt{2} & \frac{3}{\sqrt{2}} \\
-        0 & \frac{\sqrt{18}}{2} 
+        0 & \frac{3}{\sqrt{2}} 
         \end{bmatrix}
     $$ \\
     Therefore, $A_1 = RQ$ is \\
     $$
     A_1 = RQ = 
     \begin{bmatrix}
-        \frac{1}{\sqrt{2}} & \frac{-3}{\sqrt{18}} \\
-        \frac{1}{\sqrt{2}} & \frac{3}{\sqrt{18}} 
+        \sqrt{2} & \frac{3}{\sqrt{2}} \\
+        0 & \frac{3}{\sqrt{2}} 
     \end{bmatrix}
     \begin{bmatrix}
-        \sqrt{2} & \frac{3}{\sqrt{2}} \\
-        0 & \frac{\sqrt{18}}{2} 
+        \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} \\
+        \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} 
     \end{bmatrix}
-    = \frac{1}{2}
-     \begin{bmatrix}
-        5 & 1 \\
-        3 & 3 
+    =
+    \begin{bmatrix}
+        \frac{5}{2} & \frac{1}{2} \\
+        \frac{3}{2} & \frac{3}{2} 
     \end{bmatrix}
     $$
     Finding the eigenvalues from factoring the characteristic equation of $A_1$, we get \\
-    $$det(A_1 - \lambda I) = (\frac{5}{2} - \lambda)(\frac{3}{2} - \lambda) - \frac{3}{2 \times 2} = 0 \implies \lambda^2 -4\lambda +3 = 0  \\
+    $$det(A_1 - \lambda I) = (\frac{5}{2} - \lambda)(\frac{3}{2} - \lambda) + \frac{3}{2 \times 2} = 0
     $$
     $$\implies (1 - \lambda)(3 - \lambda) = 0 \implies \lambda = 3,1$$ \\\\
 
     Therefore, $A_1$ and $A$ have the same eigenvalues
 
-
 \subsection{$A_k$ is similar to $A$}
-
-Proof by induction. \\
+\begin{proof} By induction. \\
 Inductive Hypothesis: $A_k$ is similar to $A$ for $k \geq 1$ \\
 Base case:$A_1$ is similar to $A$ \\
 For an invertible matrix Q, \\
-$A = QA_{1}Q^T = Q (RQ) Q^T = QR$ \\ \\
-Assume inductive hypothesis is true, that $A_k$ is similar to $A$ for $k \geq 1$ \\ \\
+$A = QR = QR(QQ^{-1}) = Q(RQ)Q^{-1} = QA_1Q^{-1}$ \\ \\
+Assume inductive hypothesis is true, that $A = Q_kA_kQ_k^{-1}$ or equivalently, $A_k = Q_k^{-1}AQ_k$ for $k \geq 1$ \\ \\
 To show: $A_{k+1}$ is similar to $A_k$, and therefore, $A$ \\
+$A_{k+1} = R_kQ_k$ \\
+$A_k = Q_k R_k = Q_k R_kQ_k Q_k^{-1} = Q_k A_{k+1} Q_k^{-1}$\\
+$\implies A_{k+1} = Q_k^{-1} A_k Q_k = Q_k^{-1}Q_k^{-1} A Q_kQ_k = (Q_kQ_k)^{-1} A (Q_kQ_k)$ \\
+Let $P = Q_kQ_k$, Then $A_{k+1} = P^{-1}AP$ \\
+Therefore, $A_{k+1}$ is similar to $A$ so $A_k$ is similar to $A$ for all $k \geq 1$.
 
-$A_{k+1} = R_kQ_k$ 
-
-$A_k = Q_k A_{k+1} Q_k^T  =  Q_k R_kQ_k Q_k^T = Q_k R_k$
-
-Clearly, $A_{k+1}$ is similar to $A_k$. Therefore, $A_{k+1}$ is similar to $A_k$ (since $A_k = Q_kR_k = R_{k-1}Q_{k-1}$ and so forth) by the inductive hypothesis.
-
-
+\end{proof}
 
 \subsection{Continuing Problem  1.2}
 Python code was written to calculate $A_2, A_3, A_4, A_5$. \\
@@ -125,13 +121,65 @@ A_5 = \begin{bmatrix}
 -0.02 & 0.99 & \\
 \end{bmatrix}
 $$ \\ 
-
 As we can clearly see, the diagonals of $A_k$ approach the eigenvalues of $A$ as $k$ increases.
 
 
-\subsection{Prove Theorem 1.1}
-// incomplete
-
+\subsection{An Important Theorem}
+\textbf{Sources: }\\
+    QR-Algorithm-GoodReference.pdf, \\
+    https://sites.math.rutgers.edu/~falk/math574/lecture9.pdf
+    \begin{proof} $ $\newline
+        \textbf{1. $Q^TAQ$ is upper triangular with the eigenvalues of $A$ on the diagonal.} \\\\
+        Since $A$ is a $n \times n$ matrix with $n$ eigenvalues, it is diagonizable so there exists and invertible matrix $P$ such that: \\
+        $$A = PDP^{-1}$$
+        where $D$ is a diagonal matrix with the eigenvalues of $A$ on the diagonal and $P$ contains the corresponding eigenvectors. \\
+        Let $P=QR$
+        \[
+        A = QR D R^{-1}Q^{-1} \implies Q^{-1}AQ = R D R^{-1}
+        \]\\
+        Since $RDR^{-1}$ is the product of upper triangular matrices, it is upper triangular. Therefore, $Q^{-1}AQ = Q^TAQ$ is 
+        an upper triangular matrix whose diagonals are the eigenvalues of $A$.\\\\
+        \textbf{2. $A^{m+1} = QR (D^{m+1} L D^{-(m+1)})D^{m+1}U$.} \\
+        \[
+        A^{m+1} = (PDP^{-1})^{m+1} = P D P^{-1} \cdot P D P^{-1} \cdots P D P^{-1} \quad (m + 1 \text{ times}).
+        \]
+        When you expand this multiplication, all the intermediate \( P^{-1}P \) terms cancel out, leaving:
+        \[
+        A^{m+1} = P D^{m+1} P^{-1}.
+        \]
+        Assuming P does not require row interchange, as per the GoodReference Proof, $P=LU$. Therefore, \\
+        \[
+        A^{m+1} = QR D^{m+1} LU = QR D^{m+1}U \tag{1}
+        \] \\ \\
+        \textbf{3. $A_m = P_m^TAP_m$} \\
+       
+        \[ 
+            A_{m} = R_mQ_m, \quad A_{m-1}=Q_mR_m, \quad Q_m^T = Q_m^{-1} 
+        \]
+        So, \\
+        $ R_m = Q_m^TA_{m-1} \implies A_{m} = Q^T_mA_{m-1}Q_m$\\ \\
+        Expanding this we get, \\
+        \[
+            A_m = Q^T_mA_{m-1}Q_m = Q^T_m Q^T_{m-1} A_{m-2} Q_{m-1} Qm = \cdots = Q^T_m \cdots Q^T_1A_0Q_1 \cdots Q_m = P^T_mAP_m
+        \]
+        where $P_m = Q_1 \cdots Q_m$. Note that $P_m$ is the product of orthogonal matrices and hence is
+        orthogonal. \\\\
+        \textbf{4. $P_{m}U_{m} = QR D^{m+1}U$} \\ \\
+        We know from \textbf{1.9} that $A^{m+1} = (Q_0 Q_1 \cdots Q_{m}) (R_{m} \cdots R_1 R_0)$. \\
+        Let $U_{m} = R_{m} \cdots R_0$. Then $A^{m+1} = P_{m}U_{m}$. Equating this with (1): \\
+        \[ P_{m}U_{m} = QR (D^{m+1} L D^{-(m+1)})D^{m+1}U \tag{2} \] \\        
+        The matrix \( D^{m+1} L D^{-(m+1)} \) is a lower triangular matrix whose \( j,k \)-th element is given by \( l_{jk} \left( \frac{\lambda_j}{\lambda_k} \right)^{m+1} \), when \( j > k \). Since \( \left| \frac{\lambda_j}{\lambda_k} \right| < 1 \) for \( j > k \),
+        \[
+        \lim_{m \to \infty} D^{m+1} L D^{-(m+1)} = I.
+        \]
+        Then (2) becomes $P_{m}U_{m} = QRD^{m+1}U$ \\ \\
+        \textbf{5. $A_m$ converges to $Q^TAQ$.} \\ \\
+        Since the QR factorization is unique, \\\\
+        $lim_{m \to \infty}P_{m} = Q$ and $lim_{m \to \infty}U_{m} = lim_{m \to \infty}RD^{m+1}U$. \\\\
+        So,\\
+        $lim_{m \to \infty}A_{m} = lim_{m \to \infty}P_{m}^TAP_{m} = Q^TAQ$\\\\
+        Therefore, $A_m$ converges to an upper triangular matrix whose diagonals are the eigenvalues of $A$.
+    \end{proof}
 \subsection{QR Algorithm in Python}
     Results from python code (QRAlgorithm(1.6-1.8).py): \\
     \begin{tabular}{c|c}
@@ -464,7 +512,39 @@ $Qx = \begin{bmatrix} \frac{1}{3} & \frac{2}{3} & \frac{2}{3} \\ \frac{2}{3} & \
             Thus, the upper Hessenberg form of a symmetric matrix naturally becomes tridiagonal because the symmetry constraint forces zeros to appear below and above the second subdiagonals.
         \end{proof}
 \end{enumerate}
-\subsection{2.1 R}
+\subsection{QR Algorithm with Shifts}
+\( A_{k-1} \) and \( A_k \) from the Practical QR Algorithm have the same eigenvalues.
+\begin{proof} $ $\newline
+The matrix \( A_{k-1}\) can be written as:
+\[
+A_{k-1} = Q_k R_k + \mu_k I \implies A_{k-1} - \mu_k I = Q_k R_k.
+\]
+where \( Q_k \) is orthogonal. Multiplying both sides on the left by \( Q_k^\top \), we get:
+\[
+Q_k^\top (A_{k-1} - \mu_k I) = R_k.
+\]
+
+The next matrix \( A_k \) is defined as:
+\[
+A_k = R_k Q_k + \mu_k I.
+\]
+Substituting \( R_k = Q_k^\top (A_{k-1} - \mu_k I) \), we can rewrite \( A_k \) as:
+\[
+A_k = Q_k^\top (A_{k-1} - \mu_k I) Q_k + \mu_k I.
+\]
+Simplifying this expression:
+\[
+A_k = Q_k^\top A_{k-1} Q_k - Q_k^\top (\mu_k I) Q_k + \mu_k I.
+\]
+Since \( Q_k^\top Q_k = I \), this simplifies further to:
+\[
+A_k = Q_k^\top A_{k-1} Q_k.
+\]
+
+Since $Q$ is orthogonal, $Q^{-1} = Q^T$. Therefore, $A_k $ and $A_{k-1}$ are similar matrices and thus share eigenvalues as proven in \textbf{1.1}.
+
+Thus, for every \( k \geq 1 \), the matrices \( A_{k-1} \) and \( A_k \) share the same eigenvalues.
+\end{proof}
 
 \section{Image Compression}
 \subsection{The Outer Product Form of the SVD}
